@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>睡眠科學：從神經生理到日常實踐的完整修復指南</title>
+  <style>
+    :root {
+      /* Backgrounds: Warm Paper & Editorial Oatmeal */
+      --bg-primary: #f9f8f5;
+      --bg-secondary: #f3efe7;
+      --bg-card: #ffffff;
+      --bg-card-subtle: #fcfbf9;
+      --bg-card-hover: #ffffff;
+
+      /* Dual Primary Accents: 鼠尾草綠 (生活/環境) & 霧霾藍 (神經/機制) */
+      --accent-sage: #4a6e5b;          /* 鼠尾草綠 */
+      --accent-sage-light: rgba(74, 110, 91, 0.09);
+      --accent-sage-border: rgba(74, 110, 91, 0.25);
+      
+      --accent-slate: #3d6075;         /* 霧霾藍 */
+      --accent-slate-light: rgba(61, 96, 117, 0.09);
+      --accent-slate-border: rgba(61, 96, 117, 0.25);
+
+      /* Functional Morandi Colors: 陶土紅 (警示) / 暖琥珀 / 灰紫 */
+      --accent-terracotta: #b2534a;    /* 莫蘭迪陶土紅 */
+      --accent-amber: #b38139;         /* 莫蘭迪暖琥珀 */
+      --accent-mauve: #7a5e82;         /* 莫蘭迪灰紫 */
+      
+      /* Semantic mapping aliases for compatibility */
+      --accent-cyan: var(--accent-slate);
+      --accent-indigo: #315166;
+      --accent-emerald: var(--accent-sage);
+      --accent-rose: var(--accent-terracotta);
+      --accent-purple: var(--accent-mauve);
+
+      /* Typography: Deep Charcoal Gray */
+      --text-main: #2a3138;
+      --text-heading: #182026;
+      --text-muted: #62717f;
+      --text-soft: #8594a2;
+
+      /* Borders & Shadows */
+      --border-color: #e5e1d7;
+      --border-card: #eae6dc;
+      --border-glow: rgba(61, 96, 117, 0.35);
+      --shadow-sm: 0 2px 8px rgba(40, 48, 54, 0.04);
+      --shadow-md: 0 10px 30px -4px rgba(40, 48, 54, 0.07), 0 3px 8px -2px rgba(40, 48, 54, 0.03);
+      --shadow-hover: 0 16px 36px -6px rgba(40, 48, 54, 0.1), 0 4px 12px -2px rgba(40, 48, 54, 0.04);
+
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+      background-image: 
+        radial-gradient(circle at 10% 12%, rgba(74, 110, 91, 0.045) 0%, transparent 45%),
+        radial-gradient(circle at 90% 88%, rgba(61, 96, 117, 0.05) 0%, transparent 45%),
+        linear-gradient(180deg, #fbfaf7 0%, #f7f5ef 100%);
+    }
+
+    /* Deck Container */
+    #presentation-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem;
+    }
+
+    /* Slides Wrapper */
+    .slide {
+      position: absolute;
+      width: min(94vw, 1300px);
+      height: min(88vh, 820px);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 3rem 3.5rem;
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 45px -10px rgba(40, 48, 54, 0.08), 
+                  0 4px 15px rgba(40, 48, 54, 0.04);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.85rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.38rem 0.95rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--accent-slate-light);
+      color: var(--accent-slate);
+      border: 1px solid var(--accent-slate-border);
+    }
+
+    .slide-badge.evidence-high {
+      background: var(--accent-sage-light);
+      color: var(--accent-sage);
+      border-color: var(--accent-sage-border);
+    }
+
+    .slide-badge.warning {
+      background: rgba(178, 83, 74, 0.09);
+      color: var(--accent-terracotta);
+      border-color: rgba(178, 83, 74, 0.25);
+    }
+
+    .slide-title-group h2 {
+      font-size: 2.15rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-heading);
+      margin-bottom: 0.35rem;
+    }
+
+    .slide-title-group p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Slide Body Layouts */
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    /* Editorial Cards */
+    .card {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: all 0.25s ease;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card:hover {
+      border-color: rgba(61, 96, 117, 0.35);
+      background: var(--bg-card);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-highlight {
+      background: rgba(61, 96, 117, 0.04);
+      border-color: rgba(61, 96, 117, 0.24);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .card p, .card li {
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: var(--text-main);
+    }
+
+    .card ul {
+      list-style-position: inside;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    /* Stat Box */
+    .stat-number {
+      font-size: 2.85rem;
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-slate);
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    /* Muted Morandi Alerts */
+    .alert-box {
+      border-radius: 14px;
+      padding: 1.1rem 1.45rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .alert-warning {
+      background: rgba(178, 83, 74, 0.08);
+      border: 1px solid rgba(178, 83, 74, 0.24);
+      color: #79251d;
+    }
+
+    .alert-tip {
+      background: rgba(74, 110, 91, 0.08);
+      border: 1px solid rgba(74, 110, 91, 0.24);
+      color: #264634;
+    }
+
+    /* Editorial Flow / Process Chart */
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .flow-step {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 1.3rem 1rem;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .flow-step:hover {
+      border-color: var(--accent-sage);
+      transform: translateY(-2px);
+    }
+
+    .flow-step .step-time {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-sage);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.04em;
+    }
+
+    .flow-step .step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-step .step-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .flow-arrow {
+      color: var(--accent-sage);
+      font-size: 1.35rem;
+      opacity: 0.55;
+    }
+
+    /* Editorial Table styling */
+    .table-custom {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-custom th {
+      background: var(--bg-secondary);
+      color: var(--accent-slate);
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-align: left;
+      padding: 1.05rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .table-custom td {
+      background: #ffffff;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.93rem;
+      color: var(--text-main);
+      border-bottom: 1px solid #f0ecdf;
+    }
+
+    .table-custom tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-custom tr:hover td {
+      background: #faf8f3;
+    }
+
+    /* Bottom Navigation UI */
+    #ui-controls {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.55rem 1.35rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-card);
+      z-index: 100;
+      box-shadow: 0 10px 28px rgba(40, 48, 54, 0.09);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.15rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-heading);
+    }
+
+    #slide-indicator {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 65px;
+      text-align: center;
+    }
+
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-sage), var(--accent-slate));
+      width: 0%;
+      transition: width 0.35s ease;
+      z-index: 200;
+    }
+
+    /* Enhanced Editorial Cover Slide */
+    .cover-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.35rem;
+      padding: 2.5rem 3.5rem;
+      text-align: left;
+    }
+
+    .cover-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cover-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .dot-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-sage);
+      box-shadow: 0 0 0 3px rgba(74, 110, 91, 0.18);
+    }
+
+    .cover-hero-grid {
+      display: grid;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 2.25rem;
+      align-items: center;
+      margin: 0.25rem 0;
+    }
+
+    .cover-hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: var(--accent-slate);
+      text-transform: uppercase;
+    }
+
+    .cover-hero-title {
+      font-size: 3.4rem;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      color: var(--text-heading);
+      line-height: 1.08;
+    }
+
+    .cover-dot {
+      color: var(--accent-sage);
+    }
+
+    .cover-hero-subtitle {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-slate);
+      letter-spacing: -0.015em;
+      margin-top: 0.15rem;
+    }
+
+    .cover-hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.68;
+      color: #4b5563;
+      margin-top: 0.5rem;
+      max-width: 580px;
+    }
+
+    .cover-action-prompt {
+      margin-top: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .key-badge {
+      background: #ffffff;
+      border: 1px solid #ddd7c9;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--text-heading);
+      box-shadow: 0 1px 3px rgba(40, 48, 54, 0.05);
+    }
+
+    .deck-count-chip {
+      background: var(--accent-sage-light);
+      color: var(--accent-sage);
+      border: 1px solid var(--accent-sage-border);
+      padding: 0.22rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* Cover SVG Graphic Container */
+    .cover-hero-graphic {
+      background: #ffffff;
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .graphic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    /* 3 Pillars Grid */
+    .cover-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 0.2rem;
+    }
+
+    .pillar-card {
+      background: #ffffff;
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      position: relative;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(61, 96, 117, 0.35);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .pillar-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pillar-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pillar-desc {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    /* Footer Sources Bar */
+    .cover-footer-sources {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.85rem;
+      gap: 1rem;
+    }
+
+    .sources-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .source-pills-row {
+      display: flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .source-pill-sm {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.75rem;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      color: var(--text-main);
+      box-shadow: 0 1px 3px rgba(40, 48, 54, 0.02);
+      font-weight: 500;
+    }
+
+    /* Keyboard Shortcuts Helper */
+    .keyboard-hint {
+      position: fixed;
+      right: 2rem;
+      bottom: 1.75rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.75;
+    }
+
+    kbd {
+      background: #ffffff;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-family: monospace;
+      border: 1px solid #ddd7c9;
+      color: var(--text-heading);
+      box-shadow: 0 1px 2px rgba(40, 48, 54, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <div id="presentation-container">
+
+    <!-- SLIDE 1: Cover -->
+    <div class="slide cover-slide active" data-slide="1">
+      <!-- Top Meta Bar -->
+      <div class="cover-top-meta">
+        <div class="cover-tagline">
+          <span class="dot-indicator"></span>
+          <span>EVIDENCE-BASED SLEEP MEDICINE & NEUROBIOLOGY</span>
+        </div>
+        <div class="slide-badge evidence-high">ISSUE 01 ｜ LLM WIKI 知識庫沉澱</div>
+      </div>
+
+      <!-- Hero Section: Split Left & Right -->
+      <div class="cover-hero-grid">
+        <div class="cover-hero-main">
+          <div class="cover-eyebrow">RESEARCH COMPENDIUM 2026</div>
+          <h1 class="cover-hero-title">睡眠科學<span class="cover-dot">.</span></h1>
+          <h2 class="cover-hero-subtitle">從神經生理到日常實踐的修復指南</h2>
+          <p class="cover-hero-desc">
+            整合大腦視交叉上核（SCN）主時鐘、腺苷（Adenosine）代謝動態與整夜慢波修復波形；結合 2025 澳洲隨機交叉 RCT 臨床實證，構建一套可落地的生活習慣與臥室微氣候協議。
+          </p>
+          <div class="cover-action-prompt">
+            <span>按 <span class="key-badge">Space</span> 或 <span class="key-badge">➔</span> 進入全景探索</span>
+            <span class="deck-count-chip">共 11 頁精華主題</span>
+          </div>
+        </div>
+
+        <!-- Right: Scientific Two-Process Visual SVG -->
+        <div class="cover-hero-graphic">
+          <div class="graphic-header">
+            <span>雙歷程動態模型圖解</span>
+            <span style="color: var(--accent-sage);">Two-Process Dynamics</span>
+          </div>
+          <svg viewBox="0 0 380 185" width="100%" height="180" style="overflow: visible;">
+            <!-- Grid lines -->
+            <line x1="40" y1="28" x2="360" y2="28" stroke="#f0ecdf" stroke-dasharray="3,3" stroke-width="1"/>
+            <line x1="40" y1="75" x2="360" y2="75" stroke="#f0ecdf" stroke-dasharray="3,3" stroke-width="1"/>
+            <line x1="40" y1="120" x2="360" y2="120" stroke="#f0ecdf" stroke-dasharray="3,3" stroke-width="1"/>
+            <line x1="40" y1="155" x2="360" y2="155" stroke="#e5e1d7" stroke-width="1.5"/>
+
+            <!-- Sleep Gate Area highlight -->
+            <rect x="245" y="25" width="65" height="130" fill="rgba(74, 110, 91, 0.07)" rx="8" stroke="rgba(74, 110, 91, 0.22)" stroke-dasharray="2,2"/>
+            <text x="277" y="38" font-size="9" fill="#4a6e5b" font-weight="700" text-anchor="middle">睡眠之門</text>
+
+            <!-- Time Labels on X Axis -->
+            <text x="40" y="170" font-size="9.5" fill="#8594a2" font-family="system-ui" text-anchor="middle">08:00 晨醒</text>
+            <text x="140" y="170" font-size="9.5" fill="#8594a2" font-family="system-ui" text-anchor="middle">14:00 午低潮</text>
+            <text x="275" y="170" font-size="9.5" fill="#8594a2" font-family="system-ui" text-anchor="middle">23:00 就寢</text>
+            <text x="350" y="170" font-size="9.5" fill="#8594a2" font-family="system-ui" text-anchor="middle">04:00 深睡</text>
+
+            <!-- Curve Process S (Adenosine) - Sage Green (Rises from 08:00, peaks at 23:00, then plunges) -->
+            <path d="M 40 145 C 100 125, 180 75, 275 45 C 305 85, 330 135, 360 150" fill="none" stroke="#4a6e5b" stroke-width="2.5" stroke-linecap="round"/>
+            
+            <!-- Curve Process C (Circadian Alertness) - Slate Blue (High in morning, dips at 14:00, plunges at night) -->
+            <path d="M 40 60 C 80 38, 115 70, 140 88 C 175 70, 225 60, 275 135 C 310 152, 335 148, 360 120" fill="none" stroke="#3d6075" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- Markers on Curves -->
+            <circle cx="275" cy="45" r="4.5" fill="#4a6e5b"/>
+            <circle cx="275" cy="135" r="4.5" fill="#3d6075"/>
+
+            <!-- Legend -->
+            <g transform="translate(42, 10)">
+              <circle cx="5" cy="5" r="3.5" fill="#4a6e5b"/>
+              <text x="14" y="8.5" font-size="10" font-weight="700" fill="#4a6e5b">過程 S（腺苷壓力）</text>
+
+              <circle cx="150" cy="5" r="3.5" fill="#3d6075"/>
+              <text x="159" y="8.5" font-size="10" font-weight="700" fill="#3d6075">過程 C（晝夜警覺）</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 3 Pillars Grid -->
+      <div class="cover-pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-num" style="color: var(--accent-slate);">PILLAR 01 ｜ CIRCADIAN</div>
+          <div class="pillar-title">☀️ 晝夜節律系統</div>
+          <div class="pillar-desc">SCN 主時鐘、晨間 10k Lux 光校準、午後餐後低潮與 24h 核心體溫震盪軸。</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num" style="color: var(--accent-terracotta);">PILLAR 02 ｜ HOMEOSTASIS</div>
+          <div class="pillar-title">⚡ 腺苷壓力恆常</div>
+          <div class="pillar-desc">ATP 代謝廢物累積、咖啡因競爭性拮抗機制，與 N3 慢波深度淋巴清除。</div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num" style="color: var(--accent-sage);">PILLAR 03 ｜ PROTOCOLS</div>
+          <div class="pillar-title">🌿 臨床生活協議</div>
+          <div class="pillar-desc">18.3°C 臥室微氣候、10-20m 黃金小憩、甘胺酸鎂評估與晚間倒數檢核清單。</div>
+        </div>
+      </div>
+
+      <!-- Footer Sources Attribution -->
+      <div class="cover-footer-sources">
+        <div class="sources-label">實證文獻依據</div>
+        <div class="source-pills-row">
+          <span class="source-pill-sm">Huberman Lab 睡眠工具箱</span>
+          <span class="source-pill-sm">AASM 睡眠醫學會指引</span>
+          <span class="source-pill-sm">2025 澳洲隨機交叉 RCT</span>
+          <span class="source-pill-sm">TAMHD 睡眠結構</span>
+          <span class="source-pill-sm">台灣衛福部法規標準</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Myths vs Science -->
+    <div class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>破除睡眠 3 大常見迷思</h2>
+          <p>主觀認知盲點 vs. 客觀神經生理學事實</p>
+        </div>
+        <div class="slide-badge warning">MYTHS BUSTED</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3">
+          <div class="card">
+            <div style="font-size: 2rem;">🧠</div>
+            <h3 style="color: var(--accent-terracotta);">迷思一：睡眠只是大腦關機？</h3>
+            <p><strong>事實真相：</strong>睡眠是一套精密調控的<strong>動態四階段週期</strong>。整夜腦波經歷 N1/N2 淺眠、N3 慢波深睡與 REM 做夢期，持續進行毒素代謝、生長激素釋放與記憶重塑。</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem;">☕</div>
+            <h3 style="color: var(--accent-amber);">迷思二：喝咖啡秒睡就代表沒影響？</h3>
+            <p><strong>事實真相：</strong>2025 澳洲臨床研究證實：受試者「自覺睡得好」，但客觀腦波儀（PSG）顯示<strong>第三階段 N3 慢波深睡被削奪近 30 分鐘</strong>，微覺醒次數每小時增加 1.4 次！</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 2rem;">💊</div>
+            <h3 style="color: var(--accent-slate);">迷思三：失眠就要立刻吞褪黑激素？</h3>
+            <p><strong>事實真相：</strong>褪黑激素是<strong>「日夜校準訊號（Chronobiotic）」</strong>而非安眠藥，對焦慮、疼痛或呼吸中止引發的失眠無效。且在<strong>台灣屬於「藥品」列管</strong>，不得任意代購濫用。</p>
+          </div>
+        </div>
+        <div class="alert-box alert-warning">
+          <span>⚠️</span>
+          <div><strong>核心啟示：</strong>改善睡眠不能依賴「自我主觀感覺」或「單一靈丹妙藥」，必須回歸人體生物鐘與睡眠壓力的底層機制。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: Two-Process Model -->
+    <div class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>睡眠的雙歷程模型（Two-Process Model）</h2>
+          <p>兩大獨立神經系統如何共同開啟深夜的「睡眠之門」</p>
+        </div>
+        <div class="slide-badge">CORE PHYSIOLOGY</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="color: var(--accent-slate);">過程 S：腺苷睡眠壓力 (Process S)</h3>
+              <span class="slide-badge">恆常性驅力</span>
+            </div>
+            <p><strong>機制：</strong>大腦從清晨甦醒開始持續消耗 ATP，副產物<strong>腺苷（Adenosine）</strong>在細胞外基質持續累積，結合 A1/A2A 受體抑制清醒中樞、活化睡眠中樞 VLPO。</p>
+            <ul>
+              <li>清醒時間越長，睡眠壓力越大。</li>
+              <li>唯有在<strong>第三階段慢波深睡（N3）</strong>期間，腦部神經膠淋巴系統才會徹底清除腺苷重置壓力。</li>
+              <li><strong>咖啡因干擾：</strong>搶先結合受體（競爭性拮抗），遮蔽睏意但腺苷仍在累積，代謝後引發「午後崩潰」。</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight" style="background: rgba(74, 110, 91, 0.04); border-color: rgba(74, 110, 91, 0.24);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="color: var(--accent-sage);">過程 C：晝夜節律驅力 (Process C)</h3>
+              <span class="slide-badge evidence-high">內源生物鐘</span>
+            </div>
+            <p><strong>機制：</strong>由大腦下丘腦<strong>視交叉上核（SCN）</strong>主控約 24 小時的生理時鐘，獨立於清醒時長，協調全身激素、體溫與代謝。</p>
+            <ul>
+              <li><strong>清晨：</strong>光照刺激啟動皮質醇脈衝（CAR），維持白天清醒警覺。</li>
+              <li><strong>傍晚至夜間：</strong>光線轉暗，松果體分泌褪黑激素，警覺信號暴跌。</li>
+              <li><strong>睡眠之門（Sleep Gate）：</strong>當深夜 Process S（腺苷壓力極大）與 Process C（警覺信號極低）交會時，睡眠阻力最小、修復效果最強。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert-box alert-tip">
+          <span>💡</span>
+          <div><strong>完美入睡方程式：</strong>白天累積足夠的腺苷壓力（充足活動、適當延遲咖啡因），同時讓生理時鐘精準對齊夜間暗信號，兩者協同方能享有高品質深睡。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Light & Circadian Protocol -->
+    <div class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>大腦主時鐘與光生理調控協議</h2>
+          <p>天然陽光作為最重要的時間校正器（Zeitgeber）</p>
+        </div>
+        <div class="slide-badge evidence-high">HIGH EVIDENCE</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3">
+          <div class="card">
+            <div class="stat-number">10k+</div>
+            <div class="stat-label">Lux 晨間戶外照度</div>
+            <h3 style="color: var(--accent-sage); margin-top: 0.5rem;">🌅 清晨醒來 30-60 分鐘內</h3>
+            <p>到戶外直視光線方向（勿直視太陽）：</p>
+            <ul>
+              <li>晴天：5–10 分鐘</li>
+              <li>陰雨天：15–20 分鐘</li>
+              <li><strong>禁忌：</strong>勿隔著玻璃窗（照度衰減 90% 且濾除關鍵光譜）。</li>
+              <li><strong>生理效益：</strong>刺激視網膜 ipRGCs，校準 SCN，啟動 14-16 小時褪黑激素倒數計時。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="stat-number" style="color: var(--accent-amber);">夕陽</div>
+            <div class="stat-label">低角度橘紅光譜</div>
+            <h3 style="color: var(--accent-amber); margin-top: 0.5rem;">🌇 傍晚黃昏日落時段</h3>
+            <p>戶外觀察低角度日落陽光：</p>
+            <ul>
+              <li>夕陽暖色調光譜向大腦發出「日落訊號」。</li>
+              <li><strong>光學保護效應：</strong>降低視網膜對夜間人造藍光的敏感度，減少夜間螢幕曝光的生理破壞。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="stat-number" style="color: var(--accent-slate);">&lt;5</div>
+            <div class="stat-label">Lux 夜間全黑臥室標準</div>
+            <h3 style="color: var(--accent-slate); margin-top: 0.5rem;">🌙 睡前 2-3 小時至入睡</h3>
+            <p>全面微光化與高位避光：</p>
+            <ul>
+              <li>關閉高位頂燈，改用低角度暖色桌燈/地燈。</li>
+              <li>視網膜下半部對上方藍光最敏感，低位微光干擾最小。</li>
+              <li>睡覺時全黑環境（>100 Lux 即使閉眼也會使夜間心率上升）。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Sleep Architecture -->
+    <div class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>睡眠結構：四個階段與整夜分配動力學</h2>
+          <p>前半夜體能修復 vs. 後半夜情緒與記憶整合</p>
+        </div>
+        <div class="slide-badge">SLEEP STAGES</div>
+      </div>
+      <div class="slide-content">
+        <table class="table-custom">
+          <thead>
+            <tr>
+              <th>睡眠階段</th>
+              <th>整夜佔比</th>
+              <th>外在可觀察特徵</th>
+              <th>神經生理核心任務</th>
+              <th>主要分佈時段</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: var(--text-muted);">N1 淺眠過渡</strong></td>
+              <td>2% – 5%</td>
+              <td>閉眼緩慢轉動（慢速眼動），輕喚即醒</td>
+              <td>肌肉張力放鬆，清醒向睡眠過渡</td>
+              <td>各週期交界</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--accent-slate);">N2 穩定淺眠</strong></td>
+              <td>45% – 55%</td>
+              <td>眼動停止，呼喚不易醒，佔比最大</td>
+              <td>睡眠紡錘波與 K 複合波，維持睡眠平穩與運動技能鞏固</td>
+              <td>整夜均勻分佈</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--accent-sage);">N3 深度慢波睡眠</strong></td>
+              <td>15% – 25%</td>
+              <td>呼吸深沉平緩，極難叫醒（強醒會昏沉）</td>
+              <td><strong>生長激素分泌、細胞自我修復、清除腺苷廢物</strong></td>
+              <td><strong>主要集中在前半夜</strong></td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--accent-mauve);">REM 快速動眼期</strong></td>
+              <td>20% – 25%</td>
+              <td>眼球快速轉動，骨骼肌生理性麻痺（防夢遊）</td>
+              <td><strong>80% 生動夢境發生地、情緒創傷排毒、創造力與記憶連結</strong></td>
+              <td><strong>主要集中在後半夜與清晨</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box alert-tip">
+          <span>🧠</span>
+          <div><strong>睡眠不對稱法則：</strong>提早就寢保護的是<strong>前半夜 N3 慢波深睡（體能修復）</strong>；避免清晨被吵醒保護的是<strong>後半夜 REM 睡眠（情緒與心理健康）</strong>。缺一不可！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Caffeine Protocol -->
+    <div class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>咖啡因干預協議與 2025 臨床數據</h2>
+          <p>分子拮抗機制、長效滯留效應與台灣飲品標籤</p>
+        </div>
+        <div class="slide-badge">CLINICAL RCT</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="color: var(--accent-terracotta);">🔬 2025 澳洲隨機交叉 RCT 核心數據</h3>
+            <p>23 位健康男性在睡前 4h / 8h / 12h 攝取 400mg vs 100mg：</p>
+            <ul>
+              <li><strong>400mg（睡前 4h）：</strong>總睡眠減少 <strong>51 分鐘</strong>、睡眠效率下降 <strong>9.5%</strong>、入睡延遲 14 分鐘、微覺醒每小時增加 1.4 次。</li>
+              <li><strong>深睡重創：</strong><strong>N3 深度慢波睡眠縮減近 30 分鐘（-4.8%）</strong>！</li>
+              <li><strong>12 小時長滯留效應：</strong>即使在睡前 12 小時攝取 400mg，依然顯著干擾深睡，印證四分之一衰期（10-12h）的生理殺傷力。</li>
+              <li><strong>劑量依賴性：</strong>100mg 未造成顯著干擾，證實「劑量」是關鍵。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="color: var(--accent-amber);">🚦 台灣衛福部顏色標籤與每日指引</h3>
+            <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;">
+              <div style="background:rgba(178, 83, 74, 0.08); border-left:4px solid var(--accent-terracotta); padding:0.65rem 0.9rem; border-radius:4px;">
+                <strong style="color:var(--accent-terracotta);">🔴 紅標（>201 mg）：</strong>星巴克大杯美式（<strong>301 mg</strong>，一杯即達一日極限！）。<strong>建議於睡前 12 小時截止。</strong>
+              </div>
+              <div style="background:rgba(179, 129, 57, 0.08); border-left:4px solid var(--accent-amber); padding:0.65rem 0.9rem; border-radius:4px;">
+                <strong style="color:var(--accent-amber);">🟡 黃標（101-200 mg）：</strong>大杯那堤（182 mg）、手搖大杯珍奶。<strong>建議於睡前 8-10 小時截止。</strong>
+              </div>
+              <div style="background:rgba(74, 110, 91, 0.08); border-left:4px solid var(--accent-sage); padding:0.65rem 0.9rem; border-radius:4px;">
+                <strong style="color:var(--accent-sage);">🟢 綠標（&le;100 mg）：</strong>單份濃縮（98 mg）、紅牛能量飲（80 mg）。
+              </div>
+            </div>
+            <p style="margin-top:0.6rem; font-size:0.88rem; color:var(--text-muted);">成人每日上限：<strong>300 mg</strong> ｜ 青少年（12-18歲）：<strong>&lt;100 mg</strong> ｜ 兒童孕婦避免。</p>
+          </div>
+        </div>
+
+        <div class="alert-box alert-warning">
+          <span>⚠️</span>
+          <div><strong>醒後 90-120 分鐘延遲法則：</strong>起床後不要立刻喝咖啡！延遲 1.5 至 2 小時讓晨間殘留腺苷自然代謝清除，能徹底瓦解下午 2 點的劇烈疲倦崩潰（Afternoon Crash）。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Temperature Regulation -->
+    <div class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>核心體溫調控與臥室微氣候</h2>
+          <p>核心降溫 1°C 的神經生理學與散熱悖論</p>
+        </div>
+        <div class="slide-badge evidence-high">THERMAL SCIENCE</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3">
+          <div class="card">
+            <h3 style="color: var(--accent-slate);">📉 晝夜體溫震盪</h3>
+            <p><strong>核心最低點：</strong>中午體溫上升，午後達峰；傍晚大腦啟動散熱，<strong>入睡後 4 小時核心溫度降至全日最低點（約 36.6°C）</strong>。</p>
+            <p><strong>散熱窗口：</strong>睡前手腳微血管（AVA）舒張宣洩熱量，嬰兒睡前手腳發燙即是末梢散熱反應。</p>
+          </div>
+
+          <div class="card">
+            <h3 style="color: var(--accent-sage);">🛁 溫水澡降溫悖論</h3>
+            <p><strong>睡前 60-90 分鐘溫熱水澡（40-42°C）：</strong></p>
+            <ul>
+              <li>溫水促使手掌與腳掌末梢微血管大幅擴張。</li>
+              <li>出浴後接觸空氣，大量血液在體表散熱（散熱窗效應）。</li>
+              <li><strong>反向使內部核心溫度急遽下探 1°C</strong>，大幅縮短入睡時間、誘發 N3 深睡。</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="color: var(--accent-amber);">❄️ 臥室微環境標準</h3>
+            <p><strong>最佳室溫：18.3°C（15.6–19.4°C）</strong></p>
+            <ul>
+              <li><strong>過熱地雷：</strong>寢具不透氣導致悶熱濕氣蓄積，阻斷散熱引發交感神經亢奮。</li>
+              <li><strong>過冷地雷：</strong>環境非越冷越好！&lt;15°C 會引發骨骼肌發抖產熱（Shivering），肌肉緊繃阻斷深睡。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert-box alert-tip">
+          <span>🔬</span>
+          <div><strong>荷蘭降溫服研究：</strong>使高齡失眠受試者核心體溫下降 1°C，深層睡眠比例大幅增加，夜間微覺醒次數顯著下降。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Nap Science -->
+    <div class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>午睡科學：黃金時長與睡眠惰性預防</h2>
+          <p>餐後低潮（Post-Lunch Dip）的應對策略與地雷時長</p>
+        </div>
+        <div class="slide-badge evidence-high">NAP PROTOCOL</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3">
+          <div class="card" style="border-color: var(--accent-sage-border); background: var(--accent-sage-light);">
+            <div class="stat-number" style="color: var(--accent-sage);">10-20m</div>
+            <div class="stat-label">黃金小憩（Power Nap）</div>
+            <h3 style="color: var(--accent-sage); margin-top: 0.5rem;">👑 最佳常規選擇</h3>
+            <ul>
+              <li><strong>睡眠階段：</strong>停留在 N1 與 N2 輕眠期。</li>
+              <li><strong>生理效益：</strong>迅速重置認知疲勞，<strong>零睡眠惰性</strong>，醒來即刻清醒。</li>
+              <li><strong>NASA 研究：</strong>26 分鐘小憩使飛行員任務表現提升 <strong>34%</strong>、警覺性提升 <strong>54%</strong>；工作記憶提升 30% 以上。</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-color: rgba(178, 83, 74, 0.28); background: rgba(178, 83, 74, 0.05);">
+            <div class="stat-number" style="color: var(--accent-terracotta);">30-60m</div>
+            <div class="stat-label">地雷危險區（Danger Zone）</div>
+            <h3 style="color: var(--accent-terracotta); margin-top: 0.5rem;">⚠️ 極力避免</h3>
+            <ul>
+              <li><strong>大腦狀態：</strong>強行滑入 <strong>N3 慢波深度睡眠</strong>。</li>
+              <li><strong>病理後果：</strong>大腦在 Delta 慢波中途被鬧鐘強切，大腦皮質血流灌注驟降，引發嚴重的<strong>「睡眠惰性（Sleep Inertia）」</strong>。</li>
+              <li>醒後頭痛、迷糊遲鈍長達 30-60 分鐘，越睡越累！</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-color: var(--accent-slate-border); background: var(--accent-slate-light);">
+            <div class="stat-number" style="color: var(--accent-slate);">90m</div>
+            <div class="stat-label">完整循環（Full Cycle）</div>
+            <h3 style="color: var(--accent-slate); margin-top: 0.5rem;">🔄 次佳備選（時間充裕時）</h3>
+            <ul>
+              <li><strong>睡眠階段：</strong>完成完整的 NREM + REM 週期。</li>
+              <li><strong>生理效益：</strong>從 REM 淺眠自然甦醒，大幅增強記憶鞏固與創意思維。</li>
+              <li>適合週末補眠或前夜嚴重熬夜者。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert-box alert-warning">
+          <span>🛑</span>
+          <div><strong>16:00 嚴格午睡截止線：</strong>下午 4 點後嚴禁小憩！傍晚午睡會提前大量清空累積的腺苷（Process S），直接摧毀今晚的入睡驅力與夜間深睡。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Supplements & Melatonin Law -->
+    <div class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>睡眠營養補充品：實證等級與台灣法規</h2>
+          <p>鎂元素的生體可用率對比 vs. 褪黑激素的臨床邊界</p>
+        </div>
+        <div class="slide-badge warning">LEGAL & SAFETY</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="color: var(--accent-sage);">✨ 鎂元素（Magnesium）神經放鬆</h3>
+            <p><strong>作用機制：</strong>增強 GABA 抑制通路、電位阻斷 NMDA 興奮性麩胺酸受體、下調 HPA 壓力軸皮質醇。</p>
+            <table class="table-custom" style="margin-top:0.5rem;">
+              <tr>
+                <th>型態</th>
+                <th>血腦屏障穿透</th>
+                <th>臨床特點</th>
+              </tr>
+              <tr>
+                <td><strong>L-蘇糖酸鎂</strong></td>
+                <td><span style="color:var(--accent-sage); font-weight:700;">極高</span></td>
+                <td>專利 Magtein，穿透中樞，平息大腦雜亂思緒，劑量約 145mg</td>
+              </tr>
+              <tr>
+                <td><strong>甘胺酸鎂</strong></td>
+                <td>中等</td>
+                <td>性價比最高，甘胺酸協同降低核心體溫，腸道溫和不腹瀉</td>
+              </tr>
+              <tr>
+                <td><strong>氧化/檸檬酸鎂</strong></td>
+                <td>極低</td>
+                <td>吸收率 &lt;4%，易引發滲透性腹瀉，不適合作為助眠劑</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3 style="color: var(--accent-terracotta);">⚖️ 褪黑激素（Melatonin）爭端與台灣法規</h3>
+            <ul>
+              <li><strong>本質定位：</strong>節律調節劑（Chronobiotic），非強迫鎮靜安眠藥；對時差與輪班有效，但<strong>非慢性失眠之一線療法</strong>。</li>
+              <li><strong>劑量迷思：</strong>人體生理有效劑量僅需 <strong>0.3 – 1 mg</strong>，市售 5-10 mg 會引發隔日晨昏遲鈍（Morning Grogginess）。</li>
+              <li><strong>🇹🇼 台灣法規管制：</strong>標示含褪黑激素產品在台灣屬於<strong>「藥品」列管</strong>，並非合法自行販售之保健食品，禁止未經核准代購！</li>
+              <li><strong>高風險禁忌族群：</strong>兒童青少年、孕婦、自體免疫疾病（具微弱免疫刺激性）、癲癇與慢性病患者切勿自行濫用。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Evening Routine SOP -->
+    <div class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>科學化晚間入睡倒數 SOP</h2>
+          <p>整合光照、體溫、飲食與神經放鬆的行動時間軸</p>
+        </div>
+        <div class="slide-badge evidence-high">DAILY CHECKLIST</div>
+      </div>
+      <div class="slide-content">
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="step-time">T - 10 小時</div>
+            <div class="step-title">咖啡因截止</div>
+            <div class="step-desc">紅標飲料停用<br>16:00 前結束小憩</div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step">
+            <div class="step-time">T - 4 小時</div>
+            <div class="step-title">停止劇烈運動</div>
+            <div class="step-desc">避免夜間核心體溫<br>與交感神經高檔</div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step">
+            <div class="step-time">T - 2 小時</div>
+            <div class="step-title">環境微光化</div>
+            <div class="step-desc">關閉高位天花板燈<br>改用低照度暖色燈</div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step">
+            <div class="step-time">T - 90 分鐘</div>
+            <div class="step-title">溫水澡散熱</div>
+            <div class="step-desc">40-42°C 水溫擴張末梢<br>臥室降溫至 18°C</div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step">
+            <div class="step-time">T - 60 分鐘</div>
+            <div class="step-title">補鎂與排毒</div>
+            <div class="step-desc">甘胺酸鎂或蘇糖酸鎂<br>手機不進臥室床頭</div>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step" style="border-color: var(--accent-sage); background: var(--accent-sage-light);">
+            <div class="step-time" style="color:var(--accent-sage); font-weight:800;">T - 0 就寢</div>
+            <div class="step-title" style="color:var(--accent-sage);">順暢入睡</div>
+            <div class="step-desc">全黑全靜環境<br>自然滑入慢波深睡</div>
+          </div>
+        </div>
+
+        <div class="alert-box alert-tip" style="margin-top: 1rem;">
+          <span>🛌</span>
+          <div><strong>床鋪條件反射原則：</strong>床只能用於「睡覺與親密行為」。嚴禁在床上使用筆電回覆工作郵件、滑手機或焦慮思考，避免大腦將床鋪與工作警覺形成神經制約。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Summary & Medical Alerts -->
+    <div class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="slide-title-group">
+          <h2>醫療求助紅線與睡眠核心金律</h2>
+          <p>何時該跨出自我調整、尋求專業睡眠醫學介入？</p>
+        </div>
+        <div class="slide-badge warning">CLINICAL TRIAGE</div>
+      </div>
+      <div class="slide-content">
+        <div class="grid-2">
+          <div class="card" style="border-color: rgba(178, 83, 74, 0.28); background: rgba(178, 83, 74, 0.03);">
+            <h3 style="color: var(--accent-terracotta);">🚨 醫療專科求助紅線標誌</h3>
+            <p>出現以下狀況時，請停止自行嘗試保健品，尋求睡眠醫學科或神經內科診斷：</p>
+            <ul>
+              <li><strong>時間長度：</strong>入睡困難或半夜醒來<strong>持續超過 4 週以上</strong>（慢性失眠需要 CBT-I 失眠認知行為治療）。</li>
+              <li><strong>呼吸中止徵兆：</strong>習慣性大聲打鼾、半夜呼吸暫停、突然嗆醒驚悸（強烈懷疑睡眠呼吸中止症 OSA，需做睡眠多項生理檢查 PSG）。</li>
+              <li><strong>白天障礙：</strong>嚴重日間嗜睡、開車打瞌睡、記憶與情緒劇烈失控。</li>
+              <li><strong>物質依賴：</strong>必須依賴酒精或強效鎮靜安眠藥才能入睡。</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight">
+            <h3 style="color: var(--accent-slate);">💎 睡眠科學三大終極心法</h3>
+            <ol style="display:flex; flex-direction:column; gap:0.9rem; padding-left:1.2rem; margin-top:0.3rem;">
+              <li><strong>敬畏生物節律（Circadian Rhythm）：</strong>每天固定起床時間，晨間見陽光、夜間避強光，是調控大腦 SCN 主時鐘最強大的槓桿。</li>
+              <li><strong>保護深層慢波（Slow Wave Sleep）：</strong>早喝咖啡（午睡前截止）、晚不飲酒、營造 18°C 涼爽微環境，把前半夜的體能修復與腺苷排毒拿回來。</li>
+              <li><strong>放鬆勝於強求（Wind-down First）：</strong>睡眠不是大腦能透過意志力強行命令的開關，而是身體在降溫、放鬆、安全感建立後的必然歸宿。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Controls -->
+  <div id="ui-controls">
+    <button class="nav-btn" id="prev-btn" title="上一頁 (←)">&#8592;</button>
+    <div id="slide-indicator"><span id="curr-slide">1</span> / <span id="total-slides">11</span></div>
+    <button class="nav-btn" id="next-btn" title="下一頁 (→ / 空白鍵)">&#8594;</button>
+    <button class="nav-btn" id="fullscreen-btn" title="全螢幕切換 (F)">⛶</button>
+  </div>
+
+  <div class="keyboard-hint">
+    <span>導航：<kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd> ｜ 全螢幕：<kbd>F</kbd></span>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+
+    const currSlideEl = document.getElementById('curr-slide');
+    const totalSlidesEl = document.getElementById('total-slides');
+    const progressBar = document.getElementById('progress-bar');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    totalSlidesEl.textContent = totalSlides;
+
+    function updateSlide(newIndex) {
+      if (newIndex < 0 || newIndex >= totalSlides) return;
+      
+      slides[currentIndex].classList.remove('active');
+      currentIndex = newIndex;
+      slides[currentIndex].classList.add('active');
+
+      currSlideEl.textContent = currentIndex + 1;
+      const progressPercent = ((currentIndex + 1) / totalSlides) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+    }
+
+    prevBtn.addEventListener('click', () => updateSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => updateSlide(currentIndex + 1));
+
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        updateSlide(currentIndex + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        updateSlide(currentIndex - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        updateSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        updateSlide(totalSlides - 1);
+      } else if (e.key.toLowerCase() === 'f') {
+        fullscreenBtn.click();
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        updateSlide(currentIndex + 1);
+      } else if (touchEndX - touchStartX > 50) {
+        updateSlide(currentIndex - 1);
+      }
+    }, false);
+
+    // Initial progress bar
+    updateSlide(0);
+  </script>
+</body>
+</html>
